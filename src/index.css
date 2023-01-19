@@ -1,13 +1,163 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.Form-Blue .Form-input,
+.Form-Blue .Form-textarea,
+.Form-Blue .Form-select,
+.Form-Blue .Form-date,
+.Input-Blue {
+  @apply focus:border-blue-600 focus:ring-blue-500
+}
+.Form-Blue .Form-radio ,
+.Form-Blue .Form-checkbox {
+  @apply accent-blue-600
+}
+.Form-Purple .Form-input,
+.Form-Purple .Form-textarea,
+.Form-Purple .Form-select,
+.Form-Purple .Form-date,
+.Input-Purple {
+  @apply focus:border-purple-600 focus:ring-purple-600
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.Form-Purple .Form-radio ,
+.Form-Purple .Form-checkbox {
+  @apply accent-purple-500
+}
+.Form-Success .Form-input,
+.Form-Success .Form-textarea,
+.Form-Success .Form-select,
+.Form-Success .Form-date,
+.Input-Success {
+  @apply focus:border-green-500 focus:ring-green-500
+}
+.Form-Success .Form-radio ,
+.Form-Success .Form-checkbox {
+  @apply accent-green-600
+}
+.Form-Danger .Form-input,
+.Form-Danger .Form-textarea,
+.Form-Danger .Form-select,
+.Form-Danger .Form-date,
+.Input-Danger {
+  @apply focus:border-red-600 focus:ring-red-600
+} 
+.Form-Danger .Form-radio ,
+.Form-Danger .Form-checkbox {
+  @apply accent-red-500
+}
+.Form-Warning .Form-input,
+.Form-Warning .Form-textarea,
+.Form-Warning .Form-select,
+.Form-Warning .Form-date,
+.Input-Warning {
+  @apply focus:border-yellow-500 focus:ring-yellow-500
+}
+.Form-Warning .Form-radio ,
+.Form-Warning .Form-checkbox {
+  @apply accent-yellow-400
+}
+.Form-Info .Form-input,
+.Form-Info .Form-textarea,
+.Form-Info .Form-select,
+.Form-Info .Form-date,
+.Input-Info {
+  @apply focus:border-blue-400 focus:ring-blue-400
+}
+.Form-Info .Form-radio ,
+.Form-Info .Form-checkbox {
+  @apply accent-blue-400
+}
+.Form-Light .Form-input,
+.Form-Light .Form-textarea,
+.Form-Light .Form-select,
+.Form-Light .Form-date,
+.Input-Light {
+  @apply focus:border-gray-200 focus:ring-gray-200
+}
+.Form-Light .Form-radio ,
+.Form-Light .Form-checkbox {
+  @apply accent-gray-400
+}
+.Form-Dark .Form-input,
+.Form-Dark .Form-textarea,
+.Form-Dark .Form-select,
+.Form-Dark .Form-date,
+.Input-Dark {
+  @apply focus:border-gray-800 focus:ring-gray-800
+}
+.Form-Dark .Form-radio ,
+.Form-Dark .Form-checkbox {
+  @apply  accent-gray-800
+}
+
+button[type=submit] {
+  @apply mt-2
+}
+
+button:disabled {
+  opacity: 60%;
+  cursor: no-drop !important;
+}
+
+.Tweet {
+  @apply border border-gray-200 dark:border-dim-200 pb-4 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200;
+}
+.TweetUserDetails {
+  @apply flex p-4 pb-0;
+}
+.TweetUserImg {
+  @apply h-9 w-9 rounded-full;
+}
+.TweetUserName {
+  @apply ml-2 flex flex-shrink-0 items-center font-medium text-gray-800 dark:text-white;
+}
+.TweetUserId {
+  @apply ml-1 text-sm leading-5 text-gray-400;
+}
+.TweetPostDetails {
+  @apply pl-8 xl:pl-16 pr-4;
+}
+.TweetPostText {
+  @apply w-auto font-normal text-gray-800 dark:text-white;
+}
+.TweetPostImg {
+  @apply rounded-2xl border border-gray-600 my-3 mr-2 w-full;
+}
+.TweetReactions {
+  @apply flex justify-around items-center w-full cursor-pointer;
+}
+.TweetReactions .like.active {
+  @apply text-like
+}
+.TweetReactions .love.active {
+  @apply text-love
+}
+.TweetReactions .haha.active {
+  @apply text-haha
+}
+.TweetReactions .replay.active {
+  @apply text-replay
+}
+.TweetReactions .like.active span:first-of-type {
+  @apply bg-like/10
+}
+.TweetReactions .love.active span:first-of-type {
+  @apply bg-love/10
+}
+.TweetReactions .haha.active span:first-of-type {
+  @apply bg-haha/10
+}
+.TweetReactions .replay.active span:first-of-type {
+  @apply bg-replay/10
+}
+.ReactionParent {
+  @apply flex items-center font-medium cursor-pointer dark:text-white text-xs text-gray-500 transition-colors duration-100 rounded-full;
+}
+.ReactionParent span {
+  @apply transition-colors duration-100 cursor-pointer rounded-full h-10 w-10 flex justify-center items-center;
+}
+.UserImg {
+  @apply rounded-full text-blue-400 cursor-pointer
 }
