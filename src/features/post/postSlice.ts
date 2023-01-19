@@ -12,6 +12,11 @@ export interface IReact {
   react: TReact;
 }
 
+export interface IFav {
+  userId: string;
+  postId: string;
+}
+
 export interface IPost {
   id: string;
   title: string;

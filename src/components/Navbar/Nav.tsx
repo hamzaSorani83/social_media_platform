@@ -8,8 +8,8 @@ import favorite from '@iconscout/react-unicons/icons/uil-favorite'
 import myPosts from '@iconscout/react-unicons/icons/uil-postcard'
 import { Link } from '../'
 import { TwText } from "../Link/Link";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { logout, selectUserId } from "../../features/user/userSlice";
+import { useAppDispatch } from "../../app/hooks";
+import { logout } from "../../features/user/userSlice";
 import { useNavigate } from "react-router-dom";
 
 const TwNav = tw.nav`pt-10 fixed top-0 h-screen xl:pr-4 flex flex-col items-center justify-start xl:items-start`;
@@ -18,7 +18,6 @@ const TwButton = tw.button`flex mb-8 justify-center items-center xl:justify-star
 const Nav = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const userId = useAppSelector(selectUserId);
   
   const logoutHandler = () => {
     dispatch(logout());

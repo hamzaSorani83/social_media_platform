@@ -3,7 +3,7 @@ import tw from 'twin.macro'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { selectOverlay, setOverlay } from '../../features/main/mainSlice'
 
-const TwOverlay = tw.div`fixed left-0 top-0 bg-black/40 w-full h-screen z-50`;
+const TwOverlay = tw.div`fixed left-0 top-0 bg-black/40 w-full h-screen z-40`;
 
 const Overlay: React.FC = () => {
   const show = useAppSelector(selectOverlay);
