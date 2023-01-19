@@ -12,7 +12,7 @@ import { AddComment, Comment } from '..';
 
 
 interface IProps {
-  postId: string;
+  postId: number;
   comments: IComments[];
 }
 

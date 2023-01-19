@@ -9,15 +9,14 @@ import { TwMiddle } from './Home';
 const MyPosts = () => {
   const userId = useAppSelector(selectUserId);
   const [myposts, setMyPosts] = useState<IPost[]>([]);
-  
+
   useEffect(() => {
     axios.get(`posts?authorId=${userId}&_embed=comments&_embed=reacts&_sort=id&_order=desc`)
       .then(res => {
-        console.log(res.data);
         setMyPosts(res.data)
       })
   }, [userId])
-  
+
   return (
     <TwMiddle>
       {

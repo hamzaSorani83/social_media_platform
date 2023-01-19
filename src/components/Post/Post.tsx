@@ -14,9 +14,10 @@ import { UserPhoto, ReactionsParent } from '../'
 
 interface IProps {
   post: IPost;
+  inFav?: boolean
 }
 
-const Post: React.FC<IProps> = ({ post }) => {
+const Post: React.FC<IProps> = ({ post, inFav }) => {
   const userId = useAppSelector(selectUserId);
 
   let initialReactions = {
@@ -39,7 +40,7 @@ const Post: React.FC<IProps> = ({ post }) => {
   
   const [activeReact, setActiveReact] = useState<TReact | null>(initialActiveReact);
   const [reactions, setReactions] = useState(initialReactions);
-  const [addedToFav, setAddedToFav] = useState(false);
+  const [addedToFav, setAddedToFav] = useState(inFav);
   
   const handleReact = (e) => {
     const react: TReact = e.currentTarget.getAttribute('data-react');

@@ -13,13 +13,13 @@ import { IComments } from '../../features/post/postSlice';
 
 interface ICommentDataForm {
   comment: string;
-  userId: string;
+  userId: number;
   userName?: string;
-  postId: string;
+  postId: number;
 }
 
 interface IProps {
-  postId: string;
+  postId: number;
   setNewestComment: (comment: IComments) => void
 }
 

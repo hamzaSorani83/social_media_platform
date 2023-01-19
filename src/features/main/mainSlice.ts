@@ -7,7 +7,7 @@ export interface IState {
   overlay: boolean;
   varient: IVarient;
   openCommentModal: boolean;
-  commentModalId: string | null;
+  commentModalId: number | null;
 }
 
 const initialState: IState = {
@@ -15,7 +15,7 @@ const initialState: IState = {
   overlay: false,
   varient: 'purple',
   openCommentModal: false,
-  commentModalId: '',
+  commentModalId: null,
 };
 
 export const mainSlice = createSlice({
@@ -45,11 +45,11 @@ export const mainSlice = createSlice({
         commentModalId: null,
       }
     },
-    setCommentModal: (state, action: PayloadAction<string>) => {
+    setCommentModal: (state, action: PayloadAction<number>) => {
       return {
         ...state,
-        overlay: action.payload !== '',
-        openCommentModal: action.payload !== '',
+        overlay: action.payload !== null,
+        openCommentModal: action.payload !== null,
         commentModalId: action.payload,
       }
     },

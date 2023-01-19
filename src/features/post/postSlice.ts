@@ -2,28 +2,28 @@ import { createSlice } from '@reduxjs/toolkit';
 
 export interface IComments {
   userName: string;
-  userId: string;
+  userId: number;
   comment: string;
 }
 
 export interface IReact {
-  userId: string;
-  postId: string;
+  userId: number;
+  postId: number;
   react: TReact;
 }
 
 export interface IFav {
-  userId: string;
-  postId: string;
+  userId: number;
+  postId: number;
 }
 
 export interface IPost {
-  id: string;
+  id: number;
   title: string;
   content: string;
   img: string;
   author: string;
-  authorId: string;
+  authorId: number;
   reacts: IReact[];
   comments: IComments[];
 }
@@ -32,7 +32,7 @@ export type TReact = 'like' | 'love' | 'haha';
 
 export interface Reacts {
   user: string;
-  userId: string;
+  userId: number;
   react: TReact;
 };
 

@@ -16,7 +16,7 @@ function App() {
       <Sidebar />
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/my-fav' element={<MyFav />} />
+        <Route path='/favorites' element={<MyFav />} />
         <Route path='/my-posts' element={<MyPosts />} />
       </Routes>
     </TwPage>

@@ -24,7 +24,7 @@ interface IPostData {
   title: string;
   content: string;
   author?: string;
-  authorId: string;
+  authorId: number;
   img: string;
 }
 

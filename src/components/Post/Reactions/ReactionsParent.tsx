@@ -15,7 +15,7 @@ interface IProps {
   like: number;
   love: number;
   haha: number;
-  postId: string;
+  postId: number;
   comments: IComments[];
   activeReact: TReact | null;
   handleReact: (e) => void;
