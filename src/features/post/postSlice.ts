@@ -1,5 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../../app/store';
+import { createSlice } from '@reduxjs/toolkit';
 
 export interface IComments {
   userName: string;
@@ -33,24 +32,17 @@ export interface Reacts {
 };
 
 interface IState {
-  posts: IPost[],
 }
 
 
 const initialState: IState = {
-  posts: [],
 }
 
 export const postSlice = createSlice({
-  name: 'posts',
+  name: 'post',
   initialState,
   reducers: {
-
   }
 } )
-
-// export const { addPost, toggleReact, setPosts } = postSlice.actions;
-
-export const selectPosts = (state: RootState) => state.post.posts;
 
 export default postSlice.reducer;

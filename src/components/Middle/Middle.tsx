@@ -10,14 +10,15 @@ import { IPost } from '../../features/post/postSlice';
 const TwMiddle = tw.div`mt-12 w-full xl:w-7/12 min-h-full border flex flex-col border-gray-200  dark:border-dim-200`;
 
 const Middle = () => {
-  const [posts, setPosts2] = useState<IPost[]>([])
+  const [posts, setPosts] = useState<IPost[]>([]);
+  const [newestPost, setNewestPost] = useState<IPost>()
   const dispatch = useAppDispatch();
   
   useEffect(() => {
     dispatch(setLoading(true));
     axios.get(`posts?_embed=comments&_embed=reacts&_sort=id&_order=desc`)
       .then(res => {
-        setPosts2(res.data);
+        setPosts(res.data);
       }).catch(err => {
       }).finally(() => {
         dispatch(setLoading(false));
@@ -25,15 +26,19 @@ const Middle = () => {
   }, [dispatch])
   return (
     <TwMiddle>
-      <CreatePost />
-      {/* {
+      <CreatePost setNewestPost={setNewestPost} />
+      {
+        newestPost &&
+        <Post post={newestPost} />
+      }
+      {
         posts.map((el, index) => (
           <Post
             post={el}
             key={index}
           />
         ))
-      } */}
+      }
     </TwMiddle>
   )
 }

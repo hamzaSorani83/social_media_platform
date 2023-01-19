@@ -14,6 +14,7 @@ import { Alert } from '..';
 import { selectUser } from '../../features/user/userSlice';
 import { IMessage } from '../../pages/Login';
 import { Button } from '../../Formik';
+import { IPost } from '../../features/post/postSlice';
 
 const TwBox = tw.section`border-b border-gray-200 dark:border-dim-200 pb-3`;
 const TwTextarea = tw(FormControl)`p-2 dark:text-white text-gray-900 w-full h-16 focus:outline-none resize-none`
@@ -27,7 +28,11 @@ interface IPostData {
   img: string;
 }
 
-const Login: React.FC = () => {
+interface IProps {
+  setNewestPost: (post: IPost) => void;
+}
+
+const Login: React.FC<IProps> = ({setNewestPost}) => {
   const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
   const varient = useAppSelector(selectVarient);
@@ -50,6 +55,11 @@ const Login: React.FC = () => {
           message,
           success: true,
           show: true,
+        });
+        setNewestPost({
+          ...res.data,
+          reacts: [],
+          comments: [],
         });
         actions.setSubmitting(false);
         actions.resetForm();

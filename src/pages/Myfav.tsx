@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Myfav = () => {
+const MyFav = () => {
   return (
-    <div>Myfav</div>
+    <div>MyFav</div>
   )
 }
 
-export default Myfav
+export default MyFav

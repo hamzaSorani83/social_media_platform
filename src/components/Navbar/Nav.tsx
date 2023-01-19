@@ -28,8 +28,8 @@ const Nav = () => {
     <TwNav>
       <Link to='/' text={'home'} Icon={HomeIcon} />
       <Link to='/profile' text={'profile'} Icon={ProfileIcon} />
-      <Link to={`/favorite/${userId}`} text={'favorite'} Icon={favorite} />
-      <Link to={`/my-posts/${userId}`} text={'my posts'} Icon={myPosts} />
+      <Link to={`/favorite`} text={'favorite'} Icon={favorite} />
+      <Link to={`/my-posts`} text={'my posts'} Icon={myPosts} />
       <TwButton onClick={logoutHandler}>
         <Logout />
         <TwText>logout</TwText>

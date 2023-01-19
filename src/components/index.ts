@@ -2,7 +2,11 @@ export { default as Alert } from './Alert/Alert'
 export { default as Link } from './Link/Link'
 export { default as Loading } from './Loading/Spinner'
 export { default as Middle } from './Middle/Middle'
+
 export { default as CommentModal } from './Modal/CommentModal'
+export { default as AddComment } from './Modal/AddComment'
+export { default as Comment } from './Modal/Comment'
+
 export { default as Nav } from './Navbar/Nav'
 export { default as Overlay } from './Overlay/Overlay'
 

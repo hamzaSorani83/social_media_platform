@@ -98,11 +98,15 @@ const Post: React.FC<IProps> = ({ post }) => {
           like={reactions.like}
           love={reactions.love}
           haha={reactions.haha}
-          comments={post.comments.length}
+          postId={post.id}
+          comments={post.comments}
           activeReact={activeReact}
           handleReact={handleReact}
         />
-        <img src={`C:\\images\\${post.img}`} alt="post img" />
+        {
+          post.img && 
+          <img src={post.img} alt="post img" />
+        }
       </div>
     </div>
   )

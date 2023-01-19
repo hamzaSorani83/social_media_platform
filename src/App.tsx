@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
-import { Home, Login } from './pages'
-import { Overlay, Loading, CommentModal } from './components';
+import { Home, Login, MyPosts, MyFav } from './pages'
+import { Overlay, Loading } from './components';
 import { useAppSelector } from './app/hooks';
 import { selectLoggedIn } from './features/user/userSlice';
 
@@ -19,13 +19,14 @@ function App() {
       }
       <Loading />
       <Overlay />
-      <CommentModal />
       <Routes>
         {
           loggedIn && AuthRoutes
         }
         <Route path='/login' element={<Login/>} />
-        <Route path='/signup' element={<Login loginMode={false} />} />
+        <Route path='/signup' element={<Login loginMode={true} />} />
+        <Route path='/my-posts' element={<MyPosts/>} />
+        <Route path='/my-fav' element={<MyFav/>} />
         <Route path='*' element={<Login loginMode={false} />} />
       </Routes>
     </div>
