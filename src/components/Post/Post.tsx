@@ -1,11 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import axios from '../axiosInstance/axios'
 import tw from 'twin.macro'
 import Favorite from '@iconscout/react-unicons/icons/uil-favorite'
 import True from '@iconscout/react-unicons/icons/uil-check'
+import Delete from '@iconscout/react-unicons/icons/uil-trash-alt'
+import Edit from '@iconscout/react-unicons/icons/uil-pen'
 
 import { useAppSelector } from '../../app/hooks'
 import { selectUserId } from '../../features/user/userSlice'
@@ -14,11 +16,14 @@ import { UserPhoto, ReactionsParent } from '../'
 
 interface IProps {
   post: IPost;
-  inFav?: boolean
+  inFav?: boolean;
+  editMode?: boolean;
 }
 
-const Post: React.FC<IProps> = ({ post, inFav }) => {
+const Post: React.FC<IProps> = ({ post, inFav, editMode }) => {
   const userId = useAppSelector(selectUserId);
+  const [deleted, setDeleted] = useState(false);
+  const navigate = useNavigate();
 
   let initialReactions = {
     like: 0,
@@ -37,11 +42,11 @@ const Post: React.FC<IProps> = ({ post, inFav }) => {
       initialActiveReact = el.react;
     }
   });
-  
+
   const [activeReact, setActiveReact] = useState<TReact | null>(initialActiveReact);
   const [reactions, setReactions] = useState(initialReactions);
   const [addedToFav, setAddedToFav] = useState(inFav);
-  
+
   const handleReact = (e) => {
     const react: TReact = e.currentTarget.getAttribute('data-react');
     axios.get(`reacts/?postId=${post.id}&userId=${userId}`)
@@ -87,7 +92,7 @@ const Post: React.FC<IProps> = ({ post, inFav }) => {
 
   const handleAddToFav = () => {
     setAddedToFav(!addedToFav);
-    addedToFav ? removeFromFav() : addToFav({userId, postId: post.id});
+    addedToFav ? removeFromFav() : addToFav({ userId, postId: post.id });
   }
 
   const removeFromFav = () => {
@@ -104,43 +109,79 @@ const Post: React.FC<IProps> = ({ post, inFav }) => {
       })
   }
 
+  const handleEditPost = () => {
+    navigate(`${post.id}`)
+  }
+
+  const handleDeletePost = () => {
+    axios.delete(`posts/${post.id}`).then(res => {
+      setDeleted(true);
+    })
+  }
+
   return (
-    <div className='Tweet'>
-      <div tw='flex justify-between'>
-        <div className="TweetUserDetails">
-          <UserPhoto id={post.authorId} />
-          <p className='TweetUserName'>
-            <Link to={`/profile/${post.authorId}`}> {post.author} </Link>
-            <Link to={`/profile/${post.authorId}`} className='TweetUserId'> <span>@{post.author}</span> </Link>
-          </p>
+    <>
+      {
+        !deleted &&
+        <div className='Tweet'>
+          <div tw='flex justify-between'>
+            <div tw='flex justify-between w-full'>
+              <div className="TweetUserDetails">
+                <UserPhoto id={post.authorId} />
+                <p className='TweetUserName'>
+                  <Link to={`/profile/${post.authorId}`}> {post.author} </Link>
+                  <Link to={`/profile/${post.authorId}`} className='TweetUserId'> <span>@{post.author}</span> </Link>
+                </p>
+              </div>
+              <div tw='flex justify-between'>
+                {
+                  editMode &&
+                  <>
+                    <button
+                      onClick={handleEditPost}
+                      type='button'
+                      tw='text-blue-500 mt-2 mr-3 cursor-pointer'>
+                      <Edit />
+                    </button>
+                    <button
+                      onClick={handleDeletePost}
+                      type='button'
+                      tw='text-red-500 mt-2 mr-3 cursor-pointer'>
+                      <Delete />
+                    </button>
+                  </>
+                }
+                <button
+                  onClick={handleAddToFav}
+                  type='button'
+                  tw='text-yellow-500 mt-2 mr-3 cursor-pointer'>
+                  {addedToFav ? <True /> : <Favorite />}
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className="TweetPostDetails">
+            <h2 css={tw`text-gray-800 dark:text-gray-100 text-lg font-bold`}>{post.title}</h2>
+            <p className='TweetPostText'>
+              {post.content}
+            </p>
+            <ReactionsParent
+              like={reactions.like}
+              love={reactions.love}
+              haha={reactions.haha}
+              postId={post.id}
+              comments={post.comments}
+              activeReact={activeReact}
+              handleReact={handleReact}
+            />
+            {
+              post.img &&
+              <img src={post.img} alt="post img" />
+            }
+          </div>
         </div>
-        <button
-          onClick={handleAddToFav}
-          type='button'
-          tw='text-yellow-500 mt-2 mr-3 cursor-pointer'>
-          {addedToFav ? <True /> : <Favorite />}
-        </button>
-      </div>
-      <div className="TweetPostDetails">
-        <h2 css={tw`text-gray-800 dark:text-gray-100 text-lg font-bold`}>{post.title}</h2>
-        <p className='TweetPostText'>
-          {post.content}
-        </p>
-        <ReactionsParent
-          like={reactions.like}
-          love={reactions.love}
-          haha={reactions.haha}
-          postId={post.id}
-          comments={post.comments}
-          activeReact={activeReact}
-          handleReact={handleReact}
-        />
-        {
-          post.img &&
-          <img src={post.img} alt="post img" />
-        }
-      </div>
-    </div>
+      }
+    </>
   )
 }
 

@@ -19,7 +19,7 @@ interface IProps {
 const CommentModal: React.FC<IProps> = ({ postId, comments }) => {
   const isOpen = useAppSelector(selectOpenCommentModal);
   const dispatch = useAppDispatch();
-  const [newestComment, setNewestComment] = useState<IComments>()
+  const [newestComment, setNewestComment] = useState<IComments[]>([])
 
   return (
     <div>
@@ -37,13 +37,15 @@ const CommentModal: React.FC<IProps> = ({ postId, comments }) => {
             <div>
               <div tw='bg-white border border-[#dddfe2] rounded text-gray-600 p-8'>
                 <div className="body_comment">
-                  <AddComment postId={postId} setNewestComment={setNewestComment} />
+                  <AddComment postId={postId} newestComment={newestComment} setNewestComment={setNewestComment} />
                   {
-                    newestComment && 
-                    <Comment
-                      userName={newestComment.userName}
-                      userId={newestComment.userId}
-                      comment={newestComment.comment} />
+                    newestComment.length > 0 &&
+                    newestComment.reverse().map((el, index) => (
+                      <Comment
+                        userName={el.userName}
+                        userId={el.userId}
+                        comment={el.comment} />
+                    ))
                   }
                   {
                     comments.map((el, index) => {
@@ -51,7 +53,7 @@ const CommentModal: React.FC<IProps> = ({ postId, comments }) => {
                         <Comment
                           userId={el.userId}
                           userName={el.userName}
-                          comment={el.comment}/>
+                          comment={el.comment} />
                       )
                     })
                   }

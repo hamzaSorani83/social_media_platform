@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Field, Formik } from 'formik'
 import * as Yup from 'yup';
@@ -14,31 +14,23 @@ import { Alert } from '..';
 import { selectUser } from '../../features/user/userSlice';
 import { IMessage } from '../../pages/Login';
 import { Button } from '../../Formik';
-import { IPost } from '../../features/post/postSlice';
+import { useNavigate, useParams } from 'react-router-dom';
+import { IPostData } from './CreatePost';
 
-const TwBox = tw.section`border-b border-gray-200 dark:border-dim-200 pb-3`;
-const TwTextarea = tw(FormControl)`p-2 dark:text-white text-gray-900 w-full h-16 focus:outline-none resize-none`
+const TwBox = tw.section`w-full xl:w-7/12 border h-fit my-12 border-gray-100 dark:border-dim-200 pb-3`;
+const TwTextarea = tw(FormControl)`p-2 border  dark:text-white text-gray-900 w-full h-16 focus:outline-none resize-none`
 const TwIcons = tw.div`flex text-blue-500 gap-2`;
 
-export interface IPostData {
-  title: string;
-  content: string;
-  author?: string;
-  authorId: number;
-  img: any;
-}
 
-interface IProps {
-  setNewestPost: (post: IPost) => void;
-}
-
-const Login: React.FC<IProps> = ({setNewestPost}) => {
+const Login: React.FC = () => {
   const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const varient = useAppSelector(selectVarient);
-  const [msg, setMsg] = useState<IMessage>()
-
-  const initialValues: IPostData = {
+  const [msg, setMsg] = useState<IMessage>();
+  const params = useParams();
+  const [post, setPost] = useState<IPostData>();
+  let initialValues = {
     title: '',
     content: '',
     author: user?.name,
@@ -46,9 +38,22 @@ const Login: React.FC<IProps> = ({setNewestPost}) => {
     img: '',
   }
 
+  useEffect(() => {
+    axios.get(`posts/${params.id}`)
+      .then(res => {
+        console.log()
+        setPost({
+          ...res.data,
+          img: ''
+        });
+      })
+  }, [params.id])
+  
+
+
   const onSubmit = (data: IPostData, actions: any) => {
     dispatch(setLoading(true));
-    axios.post("posts", data)
+    axios.put(`posts/${params.id}`, data)
       .then(res => {
         let message = 'Success!';
         setMsg({
@@ -56,13 +61,9 @@ const Login: React.FC<IProps> = ({setNewestPost}) => {
           success: true,
           show: true,
         });
-        setNewestPost({
-          ...res.data,
-          reacts: [],
-          comments: [],
-        });
         actions.setSubmitting(false);
         actions.resetForm();
+        navigate('/my-posts');
       }).catch(err => {
         let message: string;
         if (err.data) message = err.data;
@@ -86,21 +87,22 @@ const Login: React.FC<IProps> = ({setNewestPost}) => {
   return (
     <TwBox>
       <Formik
-        initialValues={initialValues}
+        initialValues={post || initialValues}
         onSubmit={onSubmit}
         validationSchema={validationSchema}
+        enableReinitialize
       >
         {formik => {
           return (
-            <Form varient={varient} tw="!w-full !ml-0">
+            <Form varient={varient} tw="!w-full !ml-0 ">
               <div tw="flex flex-col p-4">
                 <FormControl
                   control='input' name='title' placeholder="title.."
-                  type="text" tw='border-transparent'
+                  type="text" tw='border border-gray-200' label='title'
                 />
                 <TwTextarea
                   control='textarea' name='content' placeholder="whats happening?"
-                  type="text" tw='border-transparent'
+                  type="text" tw='border border-gray-200' label='content'
                 />
               </div>
               <div tw="flex p-4 w-full justify-between">

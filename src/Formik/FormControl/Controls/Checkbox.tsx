@@ -43,9 +43,3 @@ const CheckboxGroup: React.FC<ICheckbox> = ({name, label, options, ...rest}) => 
 }
 
 export default CheckboxGroup
-
-// const Input: React.FC<IProps> = ({ name, label, className, ...rest }) => {
-//   return (
-//     <Field name={name} id={name} {...rest} className="form-input" />
-//   )
-// }

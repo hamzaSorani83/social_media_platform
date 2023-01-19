@@ -192,7 +192,7 @@ const Login: React.FC<IProps> = ({ loginMode = true }) => {
                   label='enter your phone number' type="text"
                 />
               }
-              <div tw='flex justify-between'>
+              <div tw='flex justify-between items-center'>
                 <Button type='submit' varient={varient} disabled={(!formik.isValid || formik.isSubmitting )&& !(msg && msg.success===false)}>
                   submit
                 </Button>

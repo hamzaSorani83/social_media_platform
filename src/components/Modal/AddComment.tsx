@@ -20,10 +20,11 @@ interface ICommentDataForm {
 
 interface IProps {
   postId: number;
-  setNewestComment: (comment: IComments) => void
+  newestComment: IComments[]
+  setNewestComment: (comment: IComments[]) => void
 }
 
-const AddComment: React.FC<IProps> = ({ postId, setNewestComment }) => {
+const AddComment: React.FC<IProps> = ({ postId, newestComment, setNewestComment }) => {
   const user = useAppSelector(selectUser);
   const varient = useAppSelector(selectVarient);
 
@@ -37,11 +38,16 @@ const AddComment: React.FC<IProps> = ({ postId, setNewestComment }) => {
   const onSubmit = (data: ICommentDataForm, actions) => {
     axios.post('comments', data)
       .then(res => {
-        setNewestComment({
+        const newComment:IComments = {
           userId: res.data.userId,
           userName: res.data.userName,
           comment: res.data.comment,
-        })
+        }
+        const updatedNewComments: IComments[] = [
+          ...newestComment,
+          newComment
+        ]
+        setNewestComment(updatedNewComments)
         actions.setSubmitting(false);
         actions.resetForm();
       }).catch(err => {

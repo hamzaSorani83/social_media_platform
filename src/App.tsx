@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import { Home, Login, MyPosts, MyFav } from './pages'
-import { Overlay, Loading, Sidebar } from './components';
+import { Overlay, Loading, Sidebar, EditPost } from './components';
 import { useAppSelector } from './app/hooks';
 import { selectLoggedIn } from './features/user/userSlice';
 import tw from 'twin.macro';
@@ -18,6 +18,7 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/favorites' element={<MyFav />} />
         <Route path='/my-posts' element={<MyPosts />} />
+        <Route path='/my-posts/:id' element={<EditPost />} />
       </Routes>
     </TwPage>
   );

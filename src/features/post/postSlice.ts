@@ -22,7 +22,7 @@ export interface IPost {
   title: string;
   content: string;
   img: string;
-  author: string;
+  author: string | undefined;
   authorId: number;
   reacts: IReact[];
   comments: IComments[];

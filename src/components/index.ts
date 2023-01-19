@@ -11,6 +11,7 @@ export { default as Overlay } from './Overlay/Overlay'
 
 export { default as Post } from './Post/Post'
 export { default as CreatePost } from './Post/CreatePost'
+export { default as EditPost } from './Post/EditPost'
 export { default as ReactionsParent } from './Post/Reactions/ReactionsParent'
 export { default as Reaction } from './Post/Reactions/Reaction'
 
