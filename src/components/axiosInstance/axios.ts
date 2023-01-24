@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'http://localhost:4000/',
+  baseURL: 'https://social-media-api-8ch8.onrender.com/',
 })
 
 export default instance;
