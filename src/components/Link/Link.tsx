@@ -3,7 +3,7 @@
 import tw, { TwStyle } from 'twin.macro';
 import { NavLink, useLocation } from 'react-router-dom';
 import { selectVarient } from '../../features/main/mainSlice';
-import { useAppSelector } from '../../app/hooks';
+import { useAppSelector } from '../../app/hooks/hooks';
 import { IVarient } from '../../Formik/FormComponent';
 
 const TwLink = tw(NavLink)`flex mb-8 justify-center items-center xl:justify-start capitalize transition-colors duration-200 `;

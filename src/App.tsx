@@ -3,13 +3,15 @@ import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import { Home, Login, MyPosts, MyFav } from './pages'
 import { Overlay, Loading, Sidebar, EditPost } from './components';
-import { useAppSelector } from './app/hooks';
+import { useAppSelector } from './app/hooks/hooks';
 import { selectLoggedIn } from './features/user/userSlice';
 import tw from 'twin.macro';
 
 export const TwPage = tw.div`container mx-auto h-full flex xl:max-w-xl`;
 
+
 function App() {
+
   const loggedIn = useAppSelector(selectLoggedIn);
   let AuthRoutes = (
     <TwPage>
@@ -31,9 +33,9 @@ function App() {
   )
   return (
     <div className="App">
-      {loggedIn ? AuthRoutes : UnAuthRoutes}
-      <Loading />
-      <Overlay />
+          {loggedIn ? AuthRoutes : UnAuthRoutes}
+          <Loading />
+          <Overlay />
     </div>
   );
 }

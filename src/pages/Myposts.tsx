@@ -1,29 +1,22 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /** @jsxImportSource @emotion/react */
-import React, { useEffect, useState } from 'react'
-import axios from '../components/axiosInstance/axios';
-import { useAppSelector } from '../app/hooks'
+import { useAppSelector } from '../app/hooks/hooks'
 import { selectUserId } from '../features/user/userSlice'
-import { IPost } from '../features/post/postSlice';
-import { Post } from '../components';
+import { Loading, Post } from '../components';
 import { TwMiddle } from './Home';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import tw from 'twin.macro';
+import { useMyPostsDaa } from '../app/hooks/useMyPostsData';
 
 const MyPosts = () => {
   const userId = useAppSelector(selectUserId);
-  const [myposts, setMyPosts] = useState<IPost[]>([]);
-
-  useEffect(() => {
-    axios.get(`posts?authorId=${userId}&_embed=comments&_embed=reacts&_sort=id&_order=desc`)
-      .then(res => {
-        setMyPosts(res.data)
-      })
-  }, [userId])
-
+  const { isLoading, data: myPosts } = useMyPostsDaa(userId);
+  
+  if (isLoading) return <Loading isLoading={isLoading} />
+  
   return (
     <TwMiddle>
       {
-        myposts.length ? myposts.map((el, index) => (
+        myPosts.data.length ? myPosts.data.map((el, index) => (
           <Post post={el} key={index} editMode={true} />
         )) : <h1 tw='text-purple-600 text-2xl mx-auto mt-9 capitalize'>no posts!</h1>
       }

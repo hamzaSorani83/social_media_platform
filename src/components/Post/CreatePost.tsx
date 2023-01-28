@@ -1,20 +1,16 @@
 /** @jsxImportSource @emotion/react */
-import { useState } from 'react'
-
 import { Field, Formik } from 'formik'
 import * as Yup from 'yup';
-import axios from '../axiosInstance/axios'
 import tw from 'twin.macro';
 
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { selectVarient, setLoading } from '../../features/main/mainSlice';
+import { useAppSelector } from '../../app/hooks/hooks';
+import { selectVarient } from '../../features/main/mainSlice';
 import FormControl from '../../Formik/FormControl/FormControl';
 import Form from '../../Formik/FormComponent'
-import { Alert } from '..';
+import { Alert, Loading } from '..';
 import { selectUser } from '../../features/user/userSlice';
-import { IMessage } from '../../pages/Login';
 import { Button } from '../../Formik';
-import { IPost } from '../../features/post/postSlice';
+import { useCreatePostData } from '../../app/hooks/usePostsData';
 
 const TwBox = tw.section`border-b border-gray-200 dark:border-dim-200 pb-3`;
 const TwTextarea = tw(FormControl)`p-2 dark:text-white text-gray-900 w-full h-16 focus:outline-none resize-none`
@@ -25,18 +21,13 @@ export interface IPostData {
   content: string;
   author?: string;
   authorId: number;
-  img: any;
+  img: string;
 }
 
-interface IProps {
-  setNewestPost: (post: IPost) => void;
-}
-
-const Login: React.FC<IProps> = ({setNewestPost}) => {
+const Login: React.FC = () => {
   const user = useAppSelector(selectUser);
-  const dispatch = useAppDispatch();
   const varient = useAppSelector(selectVarient);
-  const [msg, setMsg] = useState<IMessage>()
+  const { isLoading, isSuccess, mutate: addPost } = useCreatePostData();
 
   const initialValues: IPostData = {
     title: '',
@@ -47,34 +38,7 @@ const Login: React.FC<IProps> = ({setNewestPost}) => {
   }
 
   const onSubmit = (data: IPostData, actions: any) => {
-    dispatch(setLoading(true));
-    axios.post("posts", data)
-      .then(res => {
-        let message = 'Success!';
-        setMsg({
-          message,
-          success: true,
-          show: true,
-        });
-        setNewestPost({
-          ...res.data,
-          reacts: [],
-          comments: [],
-        });
-        actions.setSubmitting(false);
-        actions.resetForm();
-      }).catch(err => {
-        let message: string;
-        if (err.data) message = err.data;
-        else message = 'something went wrong!'
-        setMsg({
-          message,
-          success: false,
-          show: true,
-        });
-      }).finally(() => {
-        dispatch(setLoading(false));
-      });
+    addPost(data, { onSuccess: () => actions.resetForm() });
   }
 
   let validationShape = {
@@ -85,10 +49,12 @@ const Login: React.FC<IProps> = ({setNewestPost}) => {
   const validationSchema = Yup.object().shape(validationShape);
   return (
     <TwBox>
+      <Loading isLoading={isLoading} />
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
         validationSchema={validationSchema}
+        reset
       >
         {formik => {
           return (
@@ -107,16 +73,13 @@ const Login: React.FC<IProps> = ({setNewestPost}) => {
                 <TwIcons>
                   <Field type="file" id="img" name="img" />
                 </TwIcons>
-                <Button type='submit' varient={varient} disabled={(!formik.isValid || formik.isSubmitting) && !(msg && msg.success === false)}>
+                <Button type='submit' varient={varient} disabled={!formik.isValid}>
                   submit
                 </Button>
               </div>
-              {
-                msg && msg.show &&
-                <Alert className={tw`block`} varient={msg.success ? 'success' : 'danger'}>
-                  {msg.message}
-                </Alert>
-              }
+              <Alert className={tw`block`} show={isSuccess} varient='success'>
+                {'post created successfully'}
+              </Alert>
             </Form>
           )
         }

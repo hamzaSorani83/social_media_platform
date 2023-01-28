@@ -10,11 +10,13 @@ export interface IReact {
   userId: number;
   postId: number;
   react: TReact;
+  id?: number | null
 }
 
 export interface IFav {
   userId: number;
   postId: number;
+  id?: number;
 }
 
 export interface IPost {
@@ -30,11 +32,12 @@ export interface IPost {
 
 export type TReact = 'like' | 'love' | 'haha'; 
 
-export interface Reacts {
-  user: string;
-  userId: number;
-  react: TReact;
-};
+
+export interface IReactions {
+  like: number;
+  love: number;
+  haha: number;
+}
 
 interface IState {
 }

@@ -1,5 +1,5 @@
 .Modal {
-  @apply absolute  overflow-hidden transition-transform duration-300  scale-0 left-1/2 -translate-x-1/2 lg:h-auto  lg:top-12 lg:w-2/5 lg:rounded-2xl w-screen h-screen z-50 bg-white dark:bg-zinc-900 dark:text-white cursor-default;
+  @apply fixed overflow-y-scroll transition-transform duration-300  scale-0 left-1/2 -translate-x-1/2 mb-20  lg:top-12 lg:w-2/5 lg:rounded-2xl w-screen h-[50vh] z-50 bg-white dark:bg-zinc-900 dark:text-white cursor-default;
 }
 .Modal.active {
   @apply scale-100 transition-[cubic];

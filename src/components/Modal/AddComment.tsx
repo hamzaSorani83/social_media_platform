@@ -2,16 +2,16 @@
 import { Formik, Form } from 'formik'
 import * as Yup from 'yup';
 import React from 'react'
-import { useAppSelector } from '../../app/hooks'
+import { useAppSelector } from '../../app/hooks/hooks'
 import { selectUser } from '../../features/user/userSlice'
 import UserPhoto from '../User/UserPhoto'
 import { selectVarient } from '../../features/main/mainSlice'
 import FormControl from '../../Formik/FormControl/FormControl'
 import { Button } from '../../Formik';
-import axios from '../axiosInstance/axios';
 import { IComments } from '../../features/post/postSlice';
+import { useAddComment } from '../../app/hooks/useComment';
 
-interface ICommentDataForm {
+export interface ICommentDataForm {
   comment: string;
   userId: number;
   userName?: string;
@@ -20,13 +20,12 @@ interface ICommentDataForm {
 
 interface IProps {
   postId: number;
-  newestComment: IComments[]
-  setNewestComment: (comment: IComments[]) => void
 }
 
-const AddComment: React.FC<IProps> = ({ postId, newestComment, setNewestComment }) => {
+const AddComment: React.FC<IProps> = ({ postId}) => {
   const user = useAppSelector(selectUser);
   const varient = useAppSelector(selectVarient);
+  const { mutate: addComment } = useAddComment();
 
   const initialValues: ICommentDataForm = {
     comment: '',
@@ -36,23 +35,24 @@ const AddComment: React.FC<IProps> = ({ postId, newestComment, setNewestComment 
   };
 
   const onSubmit = (data: ICommentDataForm, actions) => {
-    axios.post('comments', data)
-      .then(res => {
-        const newComment:IComments = {
-          userId: res.data.userId,
-          userName: res.data.userName,
-          comment: res.data.comment,
-        }
-        const updatedNewComments: IComments[] = [
-          ...newestComment,
-          newComment
-        ]
-        setNewestComment(updatedNewComments)
-        actions.setSubmitting(false);
-        actions.resetForm();
-      }).catch(err => {
-        console.log(err);
-      })
+    addComment(data);
+    // axios.post('comments', data)
+    //   .then(res => {
+    //      const newComment:IComments = {
+    //       userId: res.data.userId,
+    //       userName: res.data.userName,
+    //       comment: res.data.comment,
+    //     }
+    //     const updatedNewComments: IComments[] = [
+    //       ...newestComment,
+    //       newComment
+    //     ]
+    //     setNewestComment(updatedNewComments)
+    //     actions.setSubmitting(false);
+    //     actions.resetForm();
+    //   }).catch(err => {
+    //     console.log(err);
+    //   })
   }
 
   const validationShape = {

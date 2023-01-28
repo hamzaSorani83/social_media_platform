@@ -1,21 +1,18 @@
 /** @jsxImportSource @emotion/react */
-import { useEffect, useState } from 'react'
-
 import { Field, Formik } from 'formik'
 import * as Yup from 'yup';
-import axios from '../axiosInstance/axios'
 import tw from 'twin.macro';
 
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { selectVarient, setLoading } from '../../features/main/mainSlice';
+import { useAppSelector } from '../../app/hooks/hooks';
+import { selectVarient } from '../../features/main/mainSlice';
 import FormControl from '../../Formik/FormControl/FormControl';
 import Form from '../../Formik/FormComponent'
-import { Alert } from '..';
+import { Loading } from '..';
 import { selectUser } from '../../features/user/userSlice';
-import { IMessage } from '../../pages/Login';
 import { Button } from '../../Formik';
 import { useNavigate, useParams } from 'react-router-dom';
 import { IPostData } from './CreatePost';
+import { useEditPost, useGetPost } from '../../app/hooks/useEditPost';
 
 const TwBox = tw.section`w-full xl:w-7/12 border h-fit my-12 border-gray-100 dark:border-dim-200 pb-3`;
 const TwTextarea = tw(FormControl)`p-2 border  dark:text-white text-gray-900 w-full h-16 focus:outline-none resize-none`
@@ -24,12 +21,13 @@ const TwIcons = tw.div`flex text-blue-500 gap-2`;
 
 const Login: React.FC = () => {
   const user = useAppSelector(selectUser);
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const varient = useAppSelector(selectVarient);
-  const [msg, setMsg] = useState<IMessage>();
   const params = useParams();
-  const [post, setPost] = useState<IPostData>();
+  const postId = parseInt(params.id || '0');
+  const navigate = useNavigate();
+  const { mutate: editPost, isLoading: isLoadingEditPost } = useEditPost();
+  const { data: post, isLoading: isLoadingGetPost } = useGetPost(postId);
+  
   let initialValues = {
     title: '',
     content: '',
@@ -37,45 +35,15 @@ const Login: React.FC = () => {
     authorId: user?.userId,
     img: '',
   }
-
-  useEffect(() => {
-    axios.get(`posts/${params.id}`)
-      .then(res => {
-        console.log()
-        setPost({
-          ...res.data,
-          img: ''
-        });
-      })
-  }, [params.id])
   
-
-
   const onSubmit = (data: IPostData, actions: any) => {
-    dispatch(setLoading(true));
-    axios.put(`posts/${params.id}`, data)
-      .then(res => {
-        let message = 'Success!';
-        setMsg({
-          message,
-          success: true,
-          show: true,
-        });
-        actions.setSubmitting(false);
-        actions.resetForm();
-        navigate('/my-posts');
-      }).catch(err => {
-        let message: string;
-        if (err.data) message = err.data;
-        else message = 'something went wrong!'
-        setMsg({
-          message,
-          success: false,
-          show: true,
-        });
-      }).finally(() => {
-        dispatch(setLoading(false));
-      });
+    const updatedPost = {
+      ...post,
+      ...data,
+      id: postId
+    };
+    editPost(updatedPost);
+    navigate('/my-posts');
   }
 
   let validationShape = {
@@ -84,16 +52,18 @@ const Login: React.FC = () => {
   };
 
   const validationSchema = Yup.object().shape(validationShape);
+
   return (
     <TwBox>
       <Formik
-        initialValues={post || initialValues}
+        initialValues={post?.data || initialValues}
         onSubmit={onSubmit}
         validationSchema={validationSchema}
         enableReinitialize
       >
         {formik => {
           return (
+            <>
             <Form varient={varient} tw="!w-full !ml-0 ">
               <div tw="flex flex-col p-4">
                 <FormControl
@@ -109,17 +79,13 @@ const Login: React.FC = () => {
                 <TwIcons>
                   <Field type="file" id="img" name="img" />
                 </TwIcons>
-                <Button type='submit' varient={varient} disabled={(!formik.isValid || formik.isSubmitting) && !(msg && msg.success === false)}>
+                <Button type='submit' varient={varient}>
                   submit
                 </Button>
               </div>
-              {
-                msg && msg.show &&
-                <Alert className={tw`block`} varient={msg.success ? 'success' : 'danger'}>
-                  {msg.message}
-                </Alert>
-              }
             </Form>
+            <Loading isLoading={isLoadingGetPost || isLoadingEditPost} />
+            </>
           )
         }
         }

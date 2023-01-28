@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from 'react'
+import React from 'react'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import tw from 'twin.macro';
 import Close from '@iconscout/react-unicons/icons/uil-multiply'
 
 import './CommentModal.css'
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks/hooks';
 import { closeCommentModal, selectOpenCommentModal } from '../../features/main/mainSlice';
 import { IComments } from '../../features/post/postSlice';
 import { AddComment, Comment } from '..';
@@ -19,8 +19,9 @@ interface IProps {
 const CommentModal: React.FC<IProps> = ({ postId, comments }) => {
   const isOpen = useAppSelector(selectOpenCommentModal);
   const dispatch = useAppDispatch();
-  const [newestComment, setNewestComment] = useState<IComments[]>([])
-
+  
+  console.log(comments)
+  
   return (
     <div>
       <div className={['Modal', isOpen ? 'active' : ''].join(' ')}>
@@ -33,24 +34,16 @@ const CommentModal: React.FC<IProps> = ({ postId, comments }) => {
             </button>
             <span tw="font-semibold">{comments.length} comments</span>
           </div>
-          <section>
+          <section tw="h-auto">
             <div>
               <div tw='bg-white border border-[#dddfe2] rounded text-gray-600 p-8'>
                 <div className="body_comment">
-                  <AddComment postId={postId} newestComment={newestComment} setNewestComment={setNewestComment} />
-                  {
-                    newestComment.length > 0 &&
-                    newestComment.reverse().map((el, index) => (
-                      <Comment
-                        userName={el.userName}
-                        userId={el.userId}
-                        comment={el.comment} />
-                    ))
-                  }
+                  <AddComment postId={postId} />
                   {
                     comments.map((el, index) => {
                       return (
                         <Comment
+                          key={index}
                           userId={el.userId}
                           userName={el.userName}
                           comment={el.comment} />

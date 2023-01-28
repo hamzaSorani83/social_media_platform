@@ -1,0 +1,422 @@
+{
+  "users": [
+    {
+      "name": "hamza",
+      "email": "fsdfdsfds@gmail.com",
+      "password": "12345",
+      "confirmPassword": "12345",
+      "phone": " 963992726020",
+      "id": 1
+    },
+    {
+      "name": "hamza",
+      "email": "fsdfdsfds2@gmail.com",
+      "password": "12345",
+      "confirmPassword": "12345",
+      "phone": "963992726020",
+      "id": 7
+    },
+    {
+      "name": "hamza",
+      "email": "fsdfdsfds3@gmail.com",
+      "password": "12345",
+      "confirmPassword": "12345",
+      "phone": "963992726020",
+      "id": 8
+    },
+    {
+      "name": "hamza",
+      "email": "fsdfdsfds34@gmail.com",
+      "password": "12345",
+      "confirmPassword": "12345",
+      "phone": "963992726020",
+      "id": 9
+    },
+    {
+      "name": "sdf",
+      "email": "fsdfdsfds55@gmail.com",
+      "password": "12345",
+      "confirmPassword": "12345",
+      "phone": "",
+      "id": 10
+    }
+  ],
+  "posts": [
+    {
+      "title": "12313",
+      "content": "123f",
+      "author": "hamza",
+      "authorId": 1,
+      "img": "",
+      "id": 8
+    },
+    {
+      "data": {
+        "title": "fsdfds",
+        "content": "sdfsdf",
+        "author": "hamza",
+        "authorId": 9,
+        "img": "",
+        "id": 11
+      },
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "cache-control": "no-cache",
+        "content-length": "109",
+        "content-type": "application/json; charset=utf-8",
+        "expires": "-1",
+        "pragma": "no-cache"
+      },
+      "config": {
+        "transitional": {
+          "silentJSONParsing": true,
+          "forcedJSONParsing": true,
+          "clarifyTimeoutError": false
+        },
+        "adapter": [
+          "xhr",
+          "http"
+        ],
+        "transformRequest": [
+          null
+        ],
+        "transformResponse": [
+          null
+        ],
+        "timeout": 0,
+        "xsrfCookieName": "XSRF-TOKEN",
+        "xsrfHeaderName": "X-XSRF-TOKEN",
+        "maxContentLength": -1,
+        "maxBodyLength": -1,
+        "env": {},
+        "headers": {
+          "Accept": "application/json, text/plain, */*",
+          "Authorization": "Bearer token"
+        },
+        "baseURL": "http://localhost:4000/",
+        "url": "posts/11",
+        "method": "get"
+      },
+      "request": {},
+      "title": "233",
+      "content": "sdfsdf",
+      "author": "hamza",
+      "authorId": 9,
+      "img": "",
+      "id": 11
+    },
+    {
+      "data": {
+        "title": "fgdsfdsf",
+        "content": "fsdfdsfdsf",
+        "author": "hamza",
+        "authorId": 9,
+        "img": "",
+        "id": 12
+      },
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "cache-control": "no-cache",
+        "content-length": "115",
+        "content-type": "application/json; charset=utf-8",
+        "expires": "-1",
+        "pragma": "no-cache"
+      },
+      "config": {
+        "transitional": {
+          "silentJSONParsing": true,
+          "forcedJSONParsing": true,
+          "clarifyTimeoutError": false
+        },
+        "adapter": [
+          "xhr",
+          "http"
+        ],
+        "transformRequest": [
+          null
+        ],
+        "transformResponse": [
+          null
+        ],
+        "timeout": 0,
+        "xsrfCookieName": "XSRF-TOKEN",
+        "xsrfHeaderName": "X-XSRF-TOKEN",
+        "maxContentLength": -1,
+        "maxBodyLength": -1,
+        "env": {},
+        "headers": {
+          "Accept": "application/json, text/plain, */*",
+          "Authorization": "Bearer token"
+        },
+        "baseURL": "http://localhost:4000/",
+        "url": "posts/12",
+        "method": "get"
+      },
+      "request": {},
+      "title": "23",
+      "content": "fsdfdsfdsf",
+      "author": "hamza",
+      "authorId": 9,
+      "img": "",
+      "id": 12
+    },
+    {
+      "title": "sfasadf",
+      "content": "sdfsdf",
+      "author": "hamza",
+      "authorId": 1,
+      "img": "",
+      "id": 13
+    },
+    {
+      "data": {
+        "title": "32423",
+        "content": "fdssdf",
+        "author": "hamza",
+        "authorId": 1,
+        "img": "",
+        "id": 14
+      },
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "cache-control": "no-cache",
+        "content-length": "108",
+        "content-type": "application/json; charset=utf-8",
+        "expires": "-1",
+        "pragma": "no-cache"
+      },
+      "config": {
+        "transitional": {
+          "silentJSONParsing": true,
+          "forcedJSONParsing": true,
+          "clarifyTimeoutError": false
+        },
+        "adapter": [
+          "xhr",
+          "http"
+        ],
+        "transformRequest": [
+          null
+        ],
+        "transformResponse": [
+          null
+        ],
+        "timeout": 0,
+        "xsrfCookieName": "XSRF-TOKEN",
+        "xsrfHeaderName": "X-XSRF-TOKEN",
+        "maxContentLength": -1,
+        "maxBodyLength": -1,
+        "env": {},
+        "headers": {
+          "Accept": "application/json, text/plain, */*",
+          "Authorization": "Bearer token"
+        },
+        "baseURL": "http://localhost:4000/",
+        "url": "posts/14",
+        "method": "get"
+      },
+      "request": {},
+      "title": "1",
+      "content": "fdssdf",
+      "author": "hamza",
+      "authorId": 1,
+      "img": "",
+      "id": 14
+    }
+  ],
+  "comments": [
+    {
+      "comment": "nice!",
+      "userId ": 1,
+      "userName": "hamza",
+      "postId ": 1,
+      "id": 1
+    },
+    {
+      "comment": "fdsfdsf",
+      "userId": 10,
+      "userName": "sdf",
+      "postId": 14,
+      "id": 2
+    },
+    {
+      "comment": "dsfdsf",
+      "userId": 10,
+      "userName": "sdf",
+      "postId": 14,
+      "id": 3
+    },
+    {
+      "comment": "234",
+      "userId": 10,
+      "userName": "sdf",
+      "postId": 14,
+      "id": 4
+    },
+    {
+      "comment": "234r3r",
+      "userId": 10,
+      "userName": "sdf",
+      "postId": 14,
+      "id": 5
+    },
+    {
+      "comment": "234r3rsdfsdf",
+      "userId": 10,
+      "userName": "sdf",
+      "postId": 14,
+      "id": 6
+    },
+    {
+      "comment": "sdfdsf",
+      "userId": 10,
+      "userName": "sdf",
+      "postId": 14,
+      "id": 7
+    },
+    {
+      "comment": "sdfsdf",
+      "userId": 10,
+      "userName": "sdf",
+      "postId": 14,
+      "id": 8
+    },
+    {
+      "comment": "sdfsdfsd",
+      "userId": 10,
+      "userName": "sdf",
+      "postId": 14,
+      "id": 9
+    },
+    {
+      "comment": "123",
+      "userId": 10,
+      "userName": "sdf",
+      "postId": 14,
+      "id": 10
+    },
+    {
+      "comment": "123",
+      "userId": 10,
+      "userName": "sdf",
+      "postId": 14,
+      "id": 11
+    },
+    {
+      "comment": "1234",
+      "userId": 10,
+      "userName": "sdf",
+      "postId": 14,
+      "id": 12
+    },
+    {
+      "comment": "1234",
+      "userId": 10,
+      "userName": "sdf",
+      "postId": 14,
+      "id": 13
+    },
+    {
+      "comment": "123",
+      "userId": 10,
+      "userName": "sdf",
+      "postId": 14,
+      "id": 14
+    },
+    {
+      "comment": "123",
+      "userId": 10,
+      "userName": "sdf",
+      "postId": 14,
+      "id": 15
+    }
+  ],
+  "reacts": [
+    {
+      "react": "like",
+      "userId": 1,
+      "postId": 8,
+      "id": 2
+    },
+    {
+      "react": "haha",
+      "userId": 9,
+      "postId": 11,
+      "id": 5
+    },
+    {
+      "react": "love",
+      "userId": 9,
+      "postId": 8,
+      "id": 7
+    },
+    {
+      "react": "haha",
+      "userId": 1,
+      "postId": 12,
+      "id": 8
+    },
+    {
+      "react": "haha",
+      "userId": 1,
+      "postId": 11,
+      "id": 9
+    },
+    {
+      "react": "love",
+      "userId": 1,
+      "postId": 14,
+      "id": 11
+    },
+    {
+      "react": "like",
+      "userId": 10,
+      "postId": 14,
+      "id": 12
+    },
+    {
+      "react": "haha",
+      "userId": 10,
+      "postId": 13,
+      "id": 13
+    },
+    {
+      "react": "like",
+      "userId": 10,
+      "postId": 12,
+      "id": 14
+    },
+    {
+      "react": "love",
+      "userId": 10,
+      "postId": 11,
+      "id": 15
+    },
+    {
+      "react": "love",
+      "userId": 10,
+      "postId": 8,
+      "id": 16
+    }
+  ],
+  "favorites": [
+    {
+      "userId": 9,
+      "postId": 11,
+      "id": 2
+    },
+    {
+      "userId": 1,
+      "postId": 13,
+      "id": 5
+    },
+    {
+      "userId": 1,
+      "postId": 14,
+      "id": 6
+    }
+  ]
+}

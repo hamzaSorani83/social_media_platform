@@ -24,11 +24,14 @@ const styles = {
 
 export interface IAlert {
   varient: IVarient;
+  show?: boolean;
   className: TwStyle;
   children: ReactNode;
 }
 
-const Alert: React.FC<IAlert> = ({ varient, className = '', children }) => {
+const Alert: React.FC<IAlert> = ({ varient, show = true, className, children }) => {
+  if (!show) return <></>;
+  
   return (
     <TwAlert
       css={[styles.container(varient), className]}>

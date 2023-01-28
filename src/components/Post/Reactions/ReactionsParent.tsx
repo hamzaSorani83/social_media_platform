@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react'
-import { CommentModal, Reaction } from '../..'
-import { IComments, TReact } from '../../../features/post/postSlice';
+import { CommentModal, Loading, Reaction } from '../..'
+import { TReact } from '../../../features/post/postSlice';
 
 import Like from '@iconscout/react-unicons/icons/uil-thumbs-up'
 import Love from '@iconscout/react-unicons/icons/uil-heart'
@@ -9,29 +9,31 @@ import Haha from '@iconscout/react-unicons/icons/uil-grin-tongue-wink'
 import Replay from '@iconscout/react-unicons/icons/uil-comment-message'
 import tw from 'twin.macro';
 import { selectCommentModalId, selectOpenCommentModal, setCommentModal } from '../../../features/main/mainSlice';
-import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks/hooks';
+import { useGetComments } from '../../../app/hooks/useComment';
 
 interface IProps {
   like: number;
   love: number;
   haha: number;
   postId: number;
-  comments: IComments[];
   activeReact: TReact | null;
   handleReact: (e) => void;
 }
 
-const ReactionsParent: React.FC<IProps> = ({ like, love, haha, postId, comments, activeReact, handleReact }) => {
+const ReactionsParent: React.FC<IProps> = ({ like, love, haha, postId, activeReact, handleReact }) => {
   const dispatch = useAppDispatch();
   const commentModalId = useAppSelector(selectCommentModalId);
   const openCommentModal = useAppSelector(selectOpenCommentModal);
-
+  const { data: comments, isLoading: isLoadingGetComments } = useGetComments(postId);
+  
   const handleReplay = () => {
     dispatch(setCommentModal(postId));
   }
 
   return (
     <div className="TweetReactions" >
+      <Loading isLoading={isLoadingGetComments} />
       <Reaction
         reactions={like}
         react={'like'}
@@ -57,11 +59,11 @@ const ReactionsParent: React.FC<IProps> = ({ like, love, haha, postId, comments,
         <span css={tw`group-hover:bg-replay/10`}>
           <Replay />
         </span>
-        <span>{comments.length}</span>
+        <span>{comments?.data.length || 0}</span>
       </div>
       {
         openCommentModal && commentModalId === postId &&
-        <CommentModal postId={postId} comments={comments}/>
+        <CommentModal postId={postId} comments={comments?.data}/>
       }
     </div>
   )

@@ -8,18 +8,24 @@ import { Provider } from 'react-redux';
 import { store } from './app/store';
 
 import App from './App';
-
 import './index.css';
+
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools'
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
+const queryClient = new QueryClient();
 
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter >
-        <App />
-      </BrowserRouter>
+      <QueryClientProvider client={queryClient} contextSharing={true}>
+        <BrowserRouter >
+          <App />
+        </BrowserRouter>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
     </Provider>
   </React.StrictMode>
 );

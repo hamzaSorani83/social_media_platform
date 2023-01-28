@@ -8,7 +8,7 @@ import favorite from '@iconscout/react-unicons/icons/uil-favorite'
 import myPosts from '@iconscout/react-unicons/icons/uil-postcard'
 import { Link } from '../'
 import { TwText } from "../Link/Link";
-import { useAppDispatch } from "../../app/hooks";
+import { useAppDispatch } from "../../app/hooks/hooks";
 import { logout } from "../../features/user/userSlice";
 import { useNavigate } from "react-router-dom";
 
